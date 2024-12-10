@@ -11,10 +11,16 @@ public class PictureManager : MonoBehaviour
     [HideInInspector] public List<Picture> PictureList;
 
     private Vector2 offset = new Vector2(1.5f, 1.52f);
+
+    private List<Material> materialList = new List<Material>();
+    private List<string> texturePathList = newList<string>();
+    private Material firstMaterial;
+    private string firstTexturePath;
     
     // Start is called before the first frame update
     void Start()
     {
+        LoadMaterials();
         SpawnPictureMesh(3, 3, StartPosition, offset, false);
         MovePicure(3, 3, StartPosition, offset);
     }
@@ -23,6 +29,11 @@ public class PictureManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void LoadMaterials()
+    {
+
     }
 
     public void  SpawnPictureMesh(int rows, int columns, Vector2 pos, Vector2 offest, bool scaleDown)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameSettings : MonoBehaviour
 {
+    private readonly Dictionary<ELevelNumber, string> levelNumDirectory = new Dictionary<ELevelNumber, string>();
     private int settings;
     private const int settingsNumber = 1;
 
@@ -24,20 +25,6 @@ public class GameSettings : MonoBehaviour
         public ELevelNumber LevelsNumber;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        gameSettings = new Settings();
-        ResetGameSettings();
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // Avoid the scene from being destroyed
     void Awake()
     {
@@ -50,6 +37,27 @@ public class GameSettings : MonoBehaviour
         {
             Destroy(this);
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        SetLevelNumDirectory();
+        gameSettings = new Settings();
+        ResetGameSettings();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void SetLevelNumDirectory()
+    {
+        levelNumDirectory.Add(ELevelNumber.level1, "Level 1");
+        levelNumDirectory.Add(ELevelNumber.level2, "Level 2");
+        levelNumDirectory.Add(ELevelNumber.level3, "Level 3");
     }
 
     public void SetLevelNumber(ELevelNumber Number)
@@ -73,5 +81,23 @@ public class GameSettings : MonoBehaviour
     public bool AllSettingsReady()
     {
         return settings == settingsNumber;
+    }
+
+    public string GetMaterialDirectoryName()
+    {
+        return "Materials/";
+    }
+
+    public string GetLevelNumTextureDirectoryName()
+    {
+        if (levelNumDirectory.ContainsKey(gameSettings.LevelsNumber))
+        {
+            return "Graphics/LevelNum" + levelNumDirectory[gameSettings.LevelsNumber];
+        }
+        else
+        {
+            Debug.LogError("ERROR: CANNOT GET DIRECTORY NAME");
+            return "";
+        }
     }
 }
