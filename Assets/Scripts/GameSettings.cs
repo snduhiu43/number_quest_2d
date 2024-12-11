@@ -92,7 +92,7 @@ public class GameSettings : MonoBehaviour
     {
         if (levelNumDirectory.ContainsKey(gameSettings.LevelsNumber))
         {
-            return "Graphics/LevelNum" + levelNumDirectory[gameSettings.LevelsNumber];
+            return "Graphics/LevelNum/" + levelNumDirectory[gameSettings.LevelsNumber] + "/";
         }
         else
         {
