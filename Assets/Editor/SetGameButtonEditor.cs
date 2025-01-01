@@ -18,7 +18,7 @@ public class SetGameButtonEditor : Editor
         switch (myScript.ButtonType)
         {
             case SetGameButton.EButtonType.LevelNumberBtn:
-                myScript.LevelNumber = (GameSettings.ELevelNumber)EditorGUILayout.EnumPopup("Levels Numbers", myScript.LevelNumber);
+                myScript.LevelNumber = (GameSettings.ELevelNumber)EditorGUILayout.EnumPopup("Levels Number", myScript.LevelNumber);
                 break;
         }
 

@@ -8,7 +8,7 @@ public class PictureManager : MonoBehaviour
     public Transform PicSpawnPosition;
     public Vector2 StartPosition = new Vector2(-1.6f, 2.18f);
 
-    [HideInInspector] public List<Picture> PictureList;
+    [HideInInspector] public List<Picture> PictureList = new List<Picture>();
 
     private Vector2 offset = new Vector2(1.5f, 1.52f);
 
@@ -21,7 +21,7 @@ public class PictureManager : MonoBehaviour
     {
         LoadMaterials();
         SpawnPictureMesh(3, 3, StartPosition, offset, false);
-        MovePicure(3, 3, StartPosition, offset);
+        MovePicture(3, 3, StartPosition, offset);
     }
 
     private void LoadMaterials()
@@ -30,7 +30,7 @@ public class PictureManager : MonoBehaviour
         var textureFilePath = GameSettings.Instance.GetLevelNumTextureDirectoryName();
         var levelNumber = (int)GameSettings.Instance.GetLevelNumber();
         const string matBaseName = "num";
-        var firstMaterialName = "Back";
+        var firstMaterialName = "back";
 
         // Load the first material
         var backMaterialPath = materialFilePath + firstMaterialName;
@@ -61,13 +61,14 @@ public class PictureManager : MonoBehaviour
         }
     }
 
-    public void SpawnPictureMesh(int rows, int columns, Vector2 pos, Vector2 offest, bool scaleDown)
+    public void SpawnPictureMesh(int rows, int columns, Vector2 pos, Vector2 offset, bool scaleDown)
     {
         for (int col = 0; col < columns; col++)
         {
             for (int row = 0; row < rows; row++)
             {
-                var tempPicture = Instantiate(PicturePrefab, PicSpawnPosition.position, PicSpawnPosition.rotation);
+                var spawnPos = new Vector3(pos.x + (offset.x * row), pos.y - (offset.y * col), 0);
+                var tempPicture = Instantiate(PicturePrefab, spawnPos, PicSpawnPosition.rotation);
                 tempPicture.name = $"{tempPicture.name}_c{col}_r{row}";
                 PictureList.Add(tempPicture);
             }
@@ -97,7 +98,7 @@ public class PictureManager : MonoBehaviour
         }
     }
 
-    private void MovePicure(int rows, int columns, Vector2 pos, Vector2 offset)
+    private void MovePicture(int rows, int columns, Vector2 pos, Vector2 offset)
     {
         var index = 0;
         for (var col = 0; col < columns; col++)
